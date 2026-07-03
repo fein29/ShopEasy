@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using ShopEasy.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<myContext>(options => options.UseSqlServer
+(builder.Configuration.GetConnectionString("myconection")));
 
 var app = builder.Build();
 
