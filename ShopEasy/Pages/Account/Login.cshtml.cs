@@ -85,13 +85,13 @@ namespace ShopEasy.Pages.Account
                         ExpiresUtc = DateTime.UtcNow.AddDays(30)
                     });
 
-                // Redirect to profile or return URL
+                // Redirect to home or return URL
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return LocalRedirect(returnUrl);
                 }
 
-                return RedirectToPage("/Account/Profile");
+                return Redirect("/Home/Index");
             }
             catch (Exception ex)
             {

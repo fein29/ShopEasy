@@ -18,6 +18,7 @@
             else
             {
                 <form method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Product.ProductId" />
 
                     <div class="mb-3">

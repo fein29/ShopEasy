@@ -9,7 +9,7 @@ namespace ShopEasy
         public myContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<myContext>();
-            optionsBuilder.UseSqlServer("server=SHOURYASANYAL\\SQLEXPRESS; database=Shopeasy; Integrated Security=true; TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("server=BAAZIGAR\\SQLEXPRESS; database=Shopeasy; Integrated Security=true; TrustServerCertificate=true");
             return new myContext(optionsBuilder.Options);
         }
     }

@@ -84,13 +84,13 @@ namespace ShopEasy.Pages.Account
                 // Hash the password
                 var hashedPassword = PasswordHelper.HashPassword(Password);
 
-                // Create new customer
+                // Create new customer with default values for optional fields
                 var customer = new Customer
                 {
                     customer_Name = Name,
                     customer_Email = Email,
-                    customer_Phone = Phone,
-                    customer_Address = Address,
+                    customer_Phone = string.IsNullOrWhiteSpace(Phone) ? string.Empty : Phone,
+                    customer_Address = string.IsNullOrWhiteSpace(Address) ? string.Empty : Address,
                     customer_Password = hashedPassword,
                     IsVerified = true,
                     CreatedAt = DateTime.Now
@@ -104,7 +104,13 @@ namespace ShopEasy.Pages.Account
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"❌ Error creating account: {ex.Message}";
+                // Log inner exception details for better debugging
+                string errorDetails = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorDetails += " | " + ex.InnerException.Message;
+                }
+                ErrorMessage = $"❌ Error creating account: {errorDetails}";
                 return Page();
             }
         }

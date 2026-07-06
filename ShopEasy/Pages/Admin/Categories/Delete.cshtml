@@ -25,6 +25,7 @@
                 <p class="text-danger"><em>This action cannot be undone.</em></p>
 
                 <form method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Category.CategoryId" />
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-danger btn-custom">🗑️ Delete</button>

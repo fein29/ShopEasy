@@ -22,7 +22,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<myContext>(options => options.UseSqlServer
-(builder.Configuration.GetConnectionString("myconection")));
+(builder.Configuration.GetConnectionString("myconnetion")));
 
 var app = builder.Build();
 
