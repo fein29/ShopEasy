@@ -5,7 +5,7 @@ using ShopEasy.Models;
 
 namespace ShopEasy.Pages.Admin.Categories
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly myContext _db;
