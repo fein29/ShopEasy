@@ -1,0 +1,160 @@
+@page
+@model ShopEasy.Pages.Account.ProfileModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">👤 My Profile</h5>
+                    <hr />
+                    <p><strong>@Model.Customer.customer_Name</strong></p>
+                    <p class="text-muted">@Model.Customer.customer_Email</p>
+                    <a asp-page="EditProfile" class="btn btn-sm btn-primary mt-2">✏️ Edit Profile</a>
+                    <a asp-page="Logout" class="btn btn-sm btn-danger mt-2">🚪 Logout</a>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6 class="card-title">📊 Statistics</h6>
+                    <hr />
+                    <p>
+                        <strong>Total Orders:</strong>
+                        <span class="badge bg-primary">@Model.TotalOrders</span>
+                    </p>
+                    <p>
+                        <strong>Member Since:</strong>
+                        <br />
+                        <small>@Model.Customer.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📋 Profile Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong></p>
+                            <p class="text-muted">@Model.Customer.customer_Name</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong></p>
+                            <p class="text-muted">@Model.Customer.customer_Email</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong></p>
+                            <p class="text-muted">@(Model.Customer.customer_Phone ?? "Not provided")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Status:</strong></p>
+                            <p>
+                                @if (Model.Customer.IsVerified)
+                                {
+                                    <span class="badge bg-success">✓ Verified</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">⚠ Not Verified</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Address:</strong></p>
+                        <p class="text-muted">@(Model.Customer.customer_Address ?? "Not provided")</p>
+                    </div>
+
+                    <a asp-page="EditProfile" class="btn btn-primary">✏️ Edit Information</a>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">📦 Recent Orders</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Customer.Orders != null && Model.Customer.Orders.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Customer.Orders.OrderByDescending(o => o.OrderDate).Take(5))
+                                    {
+                                        <tr>
+                                            <td>#@order.Id</td>
+                                            <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                            <td>@order.OrderItems.Count</td>
+                                            <td>₹@order.TotalAmount.ToString("F2")</td>
+                                            <td>
+                                                @if (order.Status == "Pending")
+                                                {
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                }
+                                                else if (order.Status == "Confirmed")
+                                                {
+                                                    <span class="badge bg-info">Confirmed</span>
+                                                }
+                                                else if (order.Status == "Shipped")
+                                                {
+                                                    <span class="badge bg-primary">Shipped</span>
+                                                }
+                                                else if (order.Status == "Delivered")
+                                                {
+                                                    <span class="badge bg-success">Delivered</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">@order.Status</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No orders yet. <a href="/">Start shopping</a>!</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+    .card-header {
+        padding: 1rem;
+        font-weight: 600;
+    }
+    .badge {
+        padding: 0.5rem 0.75rem;
+    }
+</style>

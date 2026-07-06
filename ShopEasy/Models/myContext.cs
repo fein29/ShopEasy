@@ -13,7 +13,8 @@ namespace ShopEasy.Models
         public DbSet<Category> tbl_Category { get; set; }
         public DbSet<Product> tbl_Product { get; set; }
         public DbSet<Cart> tbl_Cart { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
     }
 }

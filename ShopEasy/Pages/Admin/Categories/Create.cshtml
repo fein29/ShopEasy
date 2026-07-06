@@ -1,0 +1,39 @@
+@page
+@model ShopEasy.Pages.Admin.Categories.CreateModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Add New Category</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="stat-card">
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Category.Name" class="form-label">Category Name *</label>
+                    <input asp-for="Category.Name" class="form-control" placeholder="Enter category name" required />
+                    <span asp-validation-for="Category.Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category.Description" class="form-label">Description</label>
+                    <textarea asp-for="Category.Description" class="form-control" rows="4" placeholder="Enter category description"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary btn-custom">💾 Save Category</button>
+                    <a asp-page="Index" class="btn btn-secondary btn-custom">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

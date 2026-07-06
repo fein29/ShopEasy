@@ -27,6 +27,38 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Admin/Dashboard">📊 Admin Dashboard</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Account/Profile">👤 My Profile</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-page="/Account/Logout">🚪 Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-primary" asp-page="/Account/Login">🔓 Customer Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success" asp-page="/Account/Register">📝 Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" asp-page="/Auth/Login">👨‍💼 Admin</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

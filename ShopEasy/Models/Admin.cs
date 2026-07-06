@@ -7,10 +7,8 @@ namespace ShopEasy.Models
         [Key]
         public int admin_Id { get; set; }
         public string admin_name { get; set; }
+        public string admin_email { get; set; }
         public string admin_password { get; set; }
         public string admin_image { get; set; }
-
-
-
     }
 }

@@ -1,0 +1,192 @@
+@page
+@model ShopEasy.Pages.Account.RegisterModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ShopEasy</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        .register-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .register-header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .register-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .btn-register {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            padding: 12px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .alert {
+            border-radius: 6px;
+            border: none;
+            margin-bottom: 20px;
+            animation: slideIn 0.3s ease;
+        }
+        @@keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .password-strength {
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .strength-weak {
+            color: #dc3545;
+        }
+        .strength-medium {
+            color: #ffc107;
+        }
+        .strength-strong {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>🏪 ShopEasy</h1>
+            <p>Create Your Account</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle"></i> @Model.ErrorMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                <i class="fas fa-check-circle"></i> @Model.SuccessMessage
+                <br />
+                <small><a href="/Account/Login">Click here to login</a></small>
+            </div>
+        }
+
+        <form method="post">
+            <div class="form-group">
+                <label for="Name">Full Name *</label>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Email">Email Address *</label>
+                <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter your email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Phone">Phone Number</label>
+                <input type="tel" class="form-control" id="Phone" name="Phone" placeholder="Enter your phone number" />
+            </div>
+
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <textarea class="form-control" id="Address" name="Address" rows="3" placeholder="Enter your address"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="Password">Password *</label>
+                <input type="password" class="form-control" id="Password" name="Password" placeholder="Enter a strong password" required minlength="6" onkeyup="checkPasswordStrength(this.value)" />
+                <div class="password-strength" id="strengthMessage"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="ConfirmPassword">Confirm Password *</label>
+                <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Re-enter your password" required />
+            </div>
+
+            <button type="submit" class="btn btn-register">📝 Create Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="/Account/Login">Login here</a>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/password-strength.js"></script>
+</body>
+</html>

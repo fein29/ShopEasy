@@ -2,7 +2,103 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 20px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .hero-section h1 {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .hero-section p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    .btn-hero {
+        margin: 10px;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 6px;
+    }
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+    }
+    .feature-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .feature-card h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="hero-section">
+    <h1>🏪 Welcome to ShopEasy</h1>
+    <p>Your one-stop online shopping destination</p>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div>
+            <a asp-page="/Account/Register" class="btn btn-light btn-hero">📝 Create Account</a>
+            <a asp-page="/Account/Login" class="btn btn-outline-light btn-hero">🔓 Login</a>
+        </div>
+    }
+    else if (!User.IsInRole("Administrator"))
+    {
+        <div>
+            <a asp-page="/Account/Profile" class="btn btn-light btn-hero">👤 View My Profile</a>
+        </div>
+    }
+    else
+    {
+        <div>
+            <a asp-page="/Admin/Dashboard" class="btn btn-light btn-hero">📊 Go to Admin Dashboard</a>
+        </div>
+    }
+</div>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <h3>🛍️ Wide Selection</h3>
+        <p>Browse thousands of products across multiple categories</p>
+    </div>
+    <div class="feature-card">
+        <h3>💰 Best Prices</h3>
+        <p>Competitive pricing and regular discounts on all items</p>
+    </div>
+    <div class="feature-card">
+        <h3>🚚 Fast Delivery</h3>
+        <p>Quick and reliable shipping to your doorstep</p>
+    </div>
+    <div class="feature-card">
+        <h3>🔒 Secure Shopping</h3>
+        <p>Your data is protected with encryption and security measures</p>
+    </div>
+</div>
+
+<hr style="margin-top: 50px;" />
+
+<div class="text-center mt-5" style="color: #666;">
+    <p>
+        Not registered yet? <a asp-page="/Account/Register" class="text-primary" style="font-weight: 600;">Sign up now</a> to start shopping!
+    </p>
 </div>

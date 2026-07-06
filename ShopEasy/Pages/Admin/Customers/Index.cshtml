@@ -1,0 +1,54 @@
+@page
+@model ShopEasy.Pages.Admin.Customers.IndexModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Customers Management</h1>
+</div>
+
+<div class="stat-card">
+    @if (Model.Customers != null && Model.Customers.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Orders</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <tr>
+                            <td>@customer.customer_Id</td>
+                            <td><strong>@customer.customer_Name</strong></td>
+                            <td>@customer.customer_Email</td>
+                            <td>@(customer.customer_Phone ?? "-")</td>
+                            <td>@(customer.customer_Address ?? "-")</td>
+                            <td>
+                                <span class="badge bg-info">
+                                    @(customer.Orders?.Count ?? 0)
+                                </span>
+                            </td>
+                            <td>@customer.CreatedAt.ToString("MMM dd, yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No customers found.
+        </div>
+    }
+</div>

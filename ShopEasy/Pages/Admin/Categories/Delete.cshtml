@@ -1,0 +1,37 @@
+@page
+@model ShopEasy.Pages.Admin.Categories.DeleteModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Delete Category</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="stat-card alert alert-warning">
+            @if (Model.Category == null)
+            {
+                <div class="alert alert-danger">Category not found.</div>
+            }
+            else
+            {
+                <p><strong>Are you sure you want to delete this category?</strong></p>
+                <p>
+                    <strong>Name:</strong> @Model.Category.Name<br />
+                    <strong>Products:</strong> @(Model.Category.Products?.Count ?? 0)
+                </p>
+                <p class="text-danger"><em>This action cannot be undone.</em></p>
+
+                <form method="post">
+                    <input type="hidden" asp-for="Category.CategoryId" />
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger btn-custom">🗑️ Delete</button>
+                        <a asp-page="Index" class="btn btn-secondary btn-custom">❌ Cancel</a>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
